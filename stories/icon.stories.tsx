@@ -11,5 +11,7 @@ stories.add(
   withInfo({
     inline: true,
     text: 'A simple button'
-  })(() => <Icon name={text('name', 'Hello')} />)
+  })(() => {
+    return <Icon name={text('name', 'wechat')} onClick={() => console.log(1)} />;
+  })
 );
