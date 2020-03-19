@@ -12,6 +12,6 @@ stories.add(
     inline: true,
     text: 'A dialog'
   })(() => {
-    return <Dialog name={text('name', 'wechat')} />;
+    return <Dialog name={text('name', '')} />;
   })
 );

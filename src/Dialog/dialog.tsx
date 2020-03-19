@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Content } from './Content';
+import React, { useState, Fragment } from 'react';
+import { Content, alert, confirm, modal } from './content';
 
 interface IProps {
   /**
@@ -10,10 +10,36 @@ interface IProps {
 
 const Dialog = (props: IProps) => {
   const [visible, setVisible] = useState(false);
+  const openModal = () => {
+    const close = modal(<button onClick={() => close()}>close</button>);
+  };
+
   return (
     <div>
       <button onClick={() => setVisible(!visible)}>open Dialog</button>
-      <Content visible={visible}>
+      <button onClick={() => alert('string')}>open alert</button>
+      <button onClick={() => confirm('confirm')}>open confirm</button>
+      <button onClick={openModal}>open modal</button>
+      <button
+        onClick={() =>
+          confirm(
+            'string',
+            () => setVisible(false),
+            () => setVisible(false)
+          )
+        }
+      >
+        open Dialog
+      </button>
+      <Content
+        closeOnClickMask={true}
+        onClose={() => setVisible(false)}
+        visible={visible}
+        buttons={[
+          <button onClick={() => setVisible(false)}>1</button>,
+          <button onClick={() => setVisible(false)}>2</button>
+        ]}
+      >
         <div>dialog</div>
       </Content>
     </div>
