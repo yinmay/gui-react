@@ -1,14 +1,15 @@
 import React, { useState, Fragment } from 'react';
 import { Content, alert, confirm, modal } from './content';
 
+// tslint:disable-next-line: no-empty-interface
 interface IProps {
   /**
    * Name for the button
    */
-  name: string;
+  // name: string;
 }
 
-const Dialog = (props: IProps) => {
+const Dialog = (props?: IProps) => {
   const [visible, setVisible] = useState(false);
   const openModal = () => {
     const close = modal(<button onClick={() => close()}>close</button>);

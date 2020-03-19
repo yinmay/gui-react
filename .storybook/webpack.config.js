@@ -12,6 +12,11 @@ module.exports = ({ config }) => {
       test: /\.scss$/,
       loaders: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../')
+    },
+    {
+      test: /\.md$/,
+      loaders: ['html-loader', 'markdown-loader'],
+      include: path.resolve(__dirname, '../')
     }
   );
   config.resolve.extensions.push('.ts', '.tsx', '.scss');
