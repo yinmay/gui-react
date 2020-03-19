@@ -56,47 +56,12 @@ const Content: React.FunctionComponent<IProps> = (props: IProps) => {
   );
 };
 
-const alert = (content: string) => {
-  const component = (
-    <Content
-      visible={true}
-      onClose={() => {
-        ReactDOM.render(React.cloneElement(component, { visible: false }), div);
-        ReactDOM.unmountComponentAtNode(div); // 事件销毁，垃圾回收
-        div.remove();
-      }}
-    >
-      <div>{content}</div>
-    </Content>
-  );
-  const div = document.createElement('div');
-  document.body.append(div);
-  return ReactDOM.render(component, div);
-  // yy([<button onClick={onClose}>ok</button>]);
-};
-
-// const yy=(content:any,buttons:any)={
-//   const onClose=() => {
-//     ReactDOM.render(React.cloneElement(component, { visible: false }), div);
-//     ReactDOM.unmountComponentAtNode(div); // 事件销毁，垃圾回收
-//     div.remove();
-//   }
-//   const component = (
-//     <Content
-//       visible={true}
-//       buttons={buttons}
-//       onClose={onClose}
-//     >
-//       <div>{content}</div>
-//     </Content>
-//   );
-//   const div = document.createElement('div');
-//   document.body.append(div);
-//   return ReactDOM.render(component, div);
-// }
-
-const confirm = (content: string, yes?: () => void, no?: () => void) => {
-  const closeModal = () => {
+const modal = (
+  content: ReactNode,
+  buttons?: ReactElement[],
+  afterClose?: () => void
+) => {
+  const close = () => {
     ReactDOM.render(React.cloneElement(component, { visible: false }), div);
     ReactDOM.unmountComponentAtNode(div); // 事件销毁，垃圾回收
     div.remove();
@@ -104,55 +69,43 @@ const confirm = (content: string, yes?: () => void, no?: () => void) => {
   const component = (
     <Content
       visible={true}
+      buttons={buttons}
       onClose={() => {
-        closeModal();
-        // tslint:disable-next-line: no-unused-expression
-        no && no();
+        close();
+        // tslint:disable-next-line:no-unused-expression
+        afterClose && afterClose();
       }}
-      buttons={[
-        <button
-          onClick={() => {
-            closeModal();
-            // tslint:disable-next-line: no-unused-expression
-            yes && yes();
-          }}
-        >
-          yes
-        </button>,
-        <button
-          onClick={() => {
-            closeModal();
-            // tslint:disable-next-line: no-unused-expression
-            no && no();
-          }}
-        >
-          no
-        </button>
-      ]}
     >
-      <div>{content}</div>
-    </Content>
-  );
-  const div = document.createElement('div');
-  document.body.append(div);
-  return ReactDOM.render(component, div);
-};
-
-const modal = (content: ReactNode | ReactFragment) => {
-  const onClose = () => {
-    ReactDOM.render(React.cloneElement(component, { visible: false }), div);
-    ReactDOM.unmountComponentAtNode(div); // 事件销毁，垃圾回收
-    div.remove();
-  };
-  const component = (
-    <Content visible={true} onClose={onClose}>
       <div>{content}</div>
     </Content>
   );
   const div = document.createElement('div');
   document.body.append(div);
   ReactDOM.render(component, div);
-  return onClose;
+  return close;
+};
+
+const alert = (content: string) => {
+  const buttons = [<button onClick={() => close()}>ok</button>];
+  const close = modal(content, buttons);
+};
+
+const confirm = (content: string, yes?: () => void, no?: () => void) => {
+  const onYes = () => {
+    close();
+    // tslint:disable-next-line: no-unused-expression
+    yes && yes();
+  };
+  const onNo = () => {
+    close();
+    // tslint:disable-next-line: no-unused-expression
+    no && no();
+  };
+  const buttons = [
+    <button onClick={onYes}>Yes</button>,
+    <button onClick={onNo}>No</button>
+  ];
+  const close = modal(content, buttons);
 };
 
 Content.defaultProps = { closeOnClickMask: false };
