@@ -1,0 +1,27 @@
+[class^='fui-'] {
+    color: #333;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+[class^='fui-']::after,
+[class^='fui-']::before {
+    color: #333;
+    box-sizing: border-box;
+}
+
+$main-color:#1890ff;
+
+button {
+    height: 30px;
+    margin: 0 4px;
+    border-radius: 2px;
+
+    &:first-child {
+        margin-left: 0
+    }
+
+    &:last-child {
+        margin-right: 0
+    }
+}

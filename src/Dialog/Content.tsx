@@ -1,6 +1,7 @@
 import React, { ReactElement, Fragment } from 'react';
 import { getScpoedClass } from '../scopedClass';
 import './dialog.scss';
+import '../index.scss';
 
 interface IProps {
   /**

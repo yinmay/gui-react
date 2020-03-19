@@ -1,19 +1,51 @@
-.gui-dialog {
-  position: fixed;
-  background: white;
-  width: 300px;
-  height: 300px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
+@import '../index.scss';
 
-  &-mask {
+.gui-dialog {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: fade-out(#000000, 0.5);
-  }
+    background: white;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+
+    &-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: fade-out(#000000, 0.5);
+    }
+
+    &-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: $main-color;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+        text-align: center;
+        line-height: 13px;
+        color: white;
+
+    }
+
+    &-header {
+        font-size: 22px;
+        padding: 8px 16px;
+        border-bottom: 1px solid rgba(0, 0, 0, .1)
+    }
+
+    &-footer {
+        padding: 8px 16px;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        text-align: right;
+    }
+
+    &-main {
+        min-height: 300px;
+    }
 }
