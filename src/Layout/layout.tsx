@@ -14,7 +14,6 @@ interface IProps extends React.SVGAttributes<SVGElement> {
 }
 
 const Layout: React.FunctionComponent<IProps> = (props: IProps) => {
-  console.log(1);
   return (
     <span>
       <svg {...props}>
