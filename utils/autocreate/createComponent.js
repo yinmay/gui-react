@@ -1,4 +1,4 @@
-//自动生成楼层文件夹
+//自动生成文件夹
 const fs = require('fs');
 const path = require('path');
 const ComponentName = process.argv[2];
@@ -12,11 +12,28 @@ const create = () => {
         __dirname + '/componentTemplate',
         path.resolve(__dirname, '../../src', ComponentName)
       );
+      copyStories(
+        __dirname + '/emaple.stories.tsx',
+        path.resolve(
+          __dirname,
+          '../../stories',
+          `./${ComponentName}.stories.tsx`
+        )
+      );
     }
   } catch (error) {
+    console.log(error);
     console.error('楼层已创建啦！！！');
   }
 };
+
+const copyStories = (src, dist) => {
+  let file = fs.createReadStream(src);
+  let out = fs.createWriteStream(dist);
+
+  file.pipe(out);
+};
+
 const trans = (name) => {
   const first = name.split('')[0];
   const left = name.slice(1);
