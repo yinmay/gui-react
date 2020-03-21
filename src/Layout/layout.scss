@@ -1,0 +1,27 @@
+.gui-layout {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+
+    &-content {
+        flex-grow: 1;
+        border: 1px solid green;
+
+    }
+
+    &.hasAside {
+
+        flex-direction: row;
+
+        .gui-layout {
+            flex-direction: column;
+
+        }
+    }
+
+    & & {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid red;
+    }
+}
