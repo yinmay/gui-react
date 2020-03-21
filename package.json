@@ -23,22 +23,17 @@
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-actions": "^5.0.6",
     "@storybook/addon-info": "^5.0.6",
     "@storybook/addon-knobs": "^5.0.6",
     "@storybook/addon-links": "^5.0.6",
     "@storybook/addon-options": "^5.0.6",
-    "@storybook/addon-viewport": "^5.3.17",
     "@storybook/react": "^5.0.6",
     "css-loader": "^2.1.1",
-    "html-loader": "^0.5.5",
-    "markdown-loader": "^5.1.0",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "sass-loader": "^7.1.0",
-    "storybook-readme": "^5.0.8",
-    "style-loader": "^0.23.1",
-    "svg-sprite-loader": "^4.2.1"
+    "style-loader": "^0.23.1"
   },
   "browserslist": [
     ">0.2%",
@@ -55,7 +50,7 @@
     "@types/storybook-addon-jsx": "^5.4.3",
     "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__addon-info": "^4.1.1",
-    "@types/storybook__addon-knobs": "^4.0.5",
+    "@types/storybook__addon-knobs": "^5.2.1",
     "@types/storybook__addon-links": "^3.3.4",
     "@types/storybook__react": "^4.0.1",
     "awesome-typescript-loader": "^5.2.1",

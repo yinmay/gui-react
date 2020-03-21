@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Content, alert, confirm, modal } from './content';
+import { Content, alert, confirm, modal } from './Content';
 
 // tslint:disable-next-line: no-empty-interface
 interface IProps {
