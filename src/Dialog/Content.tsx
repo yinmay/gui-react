@@ -37,7 +37,7 @@ const Content: React.FunctionComponent<IProps> = (props: IProps) => {
     props.visible ? (
       <Fragment>
         <div className={scpoedClass('mask')} onClick={onClickMask} />
-        <div className={scpoedClass()} onClick={props.onClose}>
+        <div className={scpoedClass('')} onClick={props.onClose}>
           <div className={scpoedClass('close')}>x</div>
           <header className={scpoedClass('header')}>notice</header>
           <div className={scpoedClass('content')}>{props.children}</div>
