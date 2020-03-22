@@ -9,19 +9,22 @@
 
     }
 
-    &.hasAside {
 
+
+    & & {
+        flex-grow: 1;
         flex-direction: row;
+        border: 1px solid red;
+    }
+
+    &-hasAside {
+        flex-direction: row;
+        border: 1px solid red;
+        display: flex;
 
         .gui-layout {
             flex-direction: column;
 
         }
-    }
-
-    & & {
-        display: flex;
-        flex-direction: row;
-        border: 1px solid red;
     }
 }

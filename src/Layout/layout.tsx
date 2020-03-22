@@ -20,12 +20,7 @@ const Layout: React.FunctionComponent<IProps> = (props: IProps) => {
     return result || now.type === Aside;
   }, false);
   return (
-    <div
-      className={scpoedClass('', {
-        extra: className
-      })}
-      {...rest}
-    >
+    <div className={scpoedClass({ hasAside }, { extra: className })} {...rest}>
       {props.children}
     </div>
   );
