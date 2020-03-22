@@ -1,39 +1,53 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
+import './layout.scss';
 import { Layout, Header, Content, Footer, Aside } from '../src';
 
 const stories = storiesOf('LayoutExample', module);
 
-stories.add('第一个例子', () => {
+stories.add('first', () => {
   return (
     <Layout>
-      <Header>Header</Header>
-      <Content>Content</Content>
-      <Footer>Footer</Footer>
+      <Header className='header'>Header</Header>
+      <Content className='content'>Content</Content>
+      <Footer className='footer'>Footer</Footer>
     </Layout>
   );
 });
-stories.add('第二个例子', () => {
+stories.add('second', () => {
   return (
     <Layout>
-      <Header>Header</Header>
+      <Header className='header'>Header</Header>
       <Layout>
-        <Aside>Aside</Aside>
-        <Content>Content</Content>
+        <Aside className='aside'>Aside</Aside>
+        <Content className='content'>Content</Content>
       </Layout>
-      <Footer>Footer</Footer>
+      <Footer className='footer'>Footer</Footer>
     </Layout>
   );
 });
-stories.add('第三个例子', () => {
+stories.add('three', () => {
   return (
     <Layout>
-      <Aside>Aside</Aside>
-      <Layout>
-        <Header>Header</Header>
-        <Content>Content</Content>
-        <Footer>Footer</Footer>
+      <Aside className='aside'>Aside</Aside>
+      <Layout className='layout'>
+        <Header className='header'>Header</Header>
+        <Content className='content'>Content</Content>
+        <Footer className='footer'>Footer</Footer>
       </Layout>
+    </Layout>
+  );
+});
+
+stories.add('four', () => {
+  return (
+    <Layout>
+      <Header className='header'>Header</Header>
+      <Layout>
+        <Content className='content'>Content</Content>
+        <Aside className='aside'>Aside</Aside>
+      </Layout>
+      <Footer className='footer'>Footer</Footer>
     </Layout>
   );
 });

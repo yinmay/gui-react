@@ -1,0 +1,26 @@
+.aside {
+    background: #ee350f;
+    color: white;
+    margin: 4px 0;
+
+}
+
+.content {
+    background: lighten(#ee350f, 20%);
+    color: white;
+    margin: 4px 0;
+}
+
+.header,
+.footer {
+    background: darken(#ee350f, 20%);
+    color: white;
+    margin: 4px 0;
+
+}
+
+.aside+.content,
+.aside+.layout,
+.content+.aside {
+    margin-left: 8px;
+}

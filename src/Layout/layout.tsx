@@ -10,17 +10,14 @@ interface IProps extends React.HtmlHTMLAttributes<HTMLElement> {
 
 const Layout: React.FunctionComponent<IProps> = (props: IProps) => {
   const { className, ...rest } = props;
-  // let hasAside = false;
-  // (props.children as ReactElement[]).map((node) => {
-  //   if (node.type === Aside) {
-  //     hasAside = true;
-  //   }
-  // });
   const hasAside = (props.children as ReactElement[]).reduce((result, now) => {
     return result || now.type === Aside;
   }, false);
   return (
-    <div className={scpoedClass({ hasAside }, { extra: className })} {...rest}>
+    <div
+      className={scpoedClass({ hasAside, '': true }, { extra: className })}
+      {...rest}
+    >
       {props.children}
     </div>
   );
