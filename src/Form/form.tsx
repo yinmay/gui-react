@@ -1,6 +1,9 @@
 import React, { ReactFragment } from 'react';
 import { Input } from '../Input/index';
+import { getScpoedClass } from '../scopedClass';
+import './form.scss';
 
+const scpoedClass = getScpoedClass('gui-form');
 export interface IFormValue {
   [k: string]: any;
 }
@@ -12,6 +15,7 @@ interface IProps {
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   onChange: (value: IFormValue) => void;
   errors: { [k: string]: string[] };
+  className?: string;
 }
 
 export const Form = (props: IProps) => {
@@ -23,23 +27,28 @@ export const Form = (props: IProps) => {
     const newFormValue = { ...props.value, [name]: value };
     props.onChange(newFormValue);
   };
+  const { className } = props;
   return (
     <form onSubmit={onSubmit}>
-      {props.fields.map((f) => {
-        const name = f && f.name;
-        return (
-          <div key={name}>
-            {f.label}
-            <Input
-              type={f.input.type}
-              value={props.value[name]}
-              onChange={(e) => onInputChange(name, e.target.value)}
-            />
-            <div>{props.errors[name]}</div>
-          </div>
-        );
-      })}
-      <div>{props.buttons}</div>
+      <table>
+        {props.fields.map((f) => {
+          const name = f && f.name;
+          return (
+            <tr className={scpoedClass('row', { extra: className })} key={name}>
+              <td>{f.label}</td>
+              <td>
+                <Input
+                  type={f.input.type}
+                  value={props.value[name]}
+                  onChange={(e) => onInputChange(name, e.target.value)}
+                />
+                <div>{props.errors[name]}</div>
+              </td>
+            </tr>
+          );
+        })}
+        <div>{props.buttons}</div>
+      </table>
     </form>
   );
 };
