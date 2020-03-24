@@ -1,5 +1,15 @@
 .gui-input {
-    border: 1px solid red;
+    margin: 10px;
+    border: 1px solid #ddd;
     line-height: 22px;
     padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px fade_out(#ee350f, 1);
+    transition: box-shadow 0.4s;
+
+    &:focus {
+        outline: none;
+        border: 1px solid lighten(#ee350f, 80%);
+        box-shadow: 0 0 0 2px fade_out(#ee350f, 0.5);
+    }
 }
