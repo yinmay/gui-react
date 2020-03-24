@@ -19,7 +19,7 @@ export const FormExample = (props: IProps) => {
     { name: 'username', label: 'username', input: { type: 'text' } },
     { name: 'password', label: 'password', input: { type: 'password' } }
   ]);
-  const [errors, setErrors] = useState({ username: [''], password: [''] });
+  const [errors, setErrors] = useState({});
   return (
     <div>
       {JSON.stringify(formData)}

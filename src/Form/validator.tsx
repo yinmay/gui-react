@@ -18,6 +18,10 @@ const isEmpty = (value: any) => {
   return value === undefined || value === null || value === '';
 };
 
+export const noError = (errors: object[]) => {
+  return Object.keys(errors).length === 0;
+};
+
 const validator = (formValue: IFormValue, rules: IFormRules): any => {
   // tslint:disable-next-line: prefer-const
   let errors: any = {};

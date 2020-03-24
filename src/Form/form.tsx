@@ -1,4 +1,5 @@
 import React, { ReactFragment } from 'react';
+import { Input } from '../Input/index';
 
 export interface IFormValue {
   [k: string]: any;
@@ -29,7 +30,7 @@ export const Form = (props: IProps) => {
         return (
           <div key={name}>
             {f.label}
-            <input
+            <Input
               type={f.input.type}
               value={props.value[name]}
               onChange={(e) => onInputChange(name, e.target.value)}
