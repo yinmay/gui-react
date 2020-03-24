@@ -1,16 +1,19 @@
-import React from 'react';
-import "./button.scss"
-interface IProps {
-  /**
-   * Text for the button
-   */
-  text: string;
+import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import './button.scss';
+import { getScpoedClass } from '../scopedClass';
+
+const scpoedClass = getScpoedClass('gui-button');
+
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type: any;
+  children?: ReactNode;
 }
 
 export const ExampleButton = (props: IProps) => {
+  const { className, ...rest } = props;
   return (
-    <a className='f6 link dim br3 ph3 pv2 mb2 dib white bg-light-purple test'>
-      {props.text}
-    </a>
+    <button className={scpoedClass('', { extra: className })}>
+      {props.children}
+    </button>
   );
 };

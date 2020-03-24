@@ -1,14 +1,22 @@
 .gui-form {
     &-row {
-        margin-top: 24px;
-        margin-bottom: 24px;
-
         &:first-child {
-            margin-top: 0;
+            padding-top: 0;
         }
 
         &:last-child {
-            margin-bottom: 0;
+            padding-bottom: 0;
         }
+    }
+
+    &-td {
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+
+    }
+
+    &-td+&-td {
+        padding-left: 8px;
     }
 }

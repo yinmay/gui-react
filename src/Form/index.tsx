@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { Form, IFormValue } from './form';
 import { validator } from './validator';
+import { ExampleButton as Button } from '../ExampleButton/button';
 
 interface IProps {
   /**
@@ -51,7 +52,7 @@ export const FormExample = (props: IProps) => {
         errors={errors}
         buttons={
           <Fragment>
-            <button type='submit'>submit</button>
+            <Button type='submit'>submit</Button>
           </Fragment>
         }
       />

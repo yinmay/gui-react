@@ -7,10 +7,8 @@ import { ExampleButton } from '../src';
 
 const stories = storiesOf('Button', module);
 
-stories.add('with text', () => <ExampleButton text={text('text', 'Hello')} />, {
+stories.add('with text', () => <ExampleButton type={text('type', 'text')} />, {
   notes: { markdown: '12' }
 });
 
-stories.add('with ', () => (
-  <ExampleButton text={text('text', '👻 👽 🤖 💩!')} />
-));
+stories.add('with ', () => <ExampleButton type={text('type', 'text')} />);

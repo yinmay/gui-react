@@ -35,8 +35,8 @@ export const Form = (props: IProps) => {
           const name = f && f.name;
           return (
             <tr className={scpoedClass('row', { extra: className })} key={name}>
-              <td>{f.label}</td>
-              <td>
+              <td className={scpoedClass('td')}>{f.label}</td>
+              <td className={scpoedClass('td')}>
                 <Input
                   type={f.input.type}
                   value={props.value[name]}
