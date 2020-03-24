@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import { Form, IFormValue } from './form';
+import { validator } from './validator';
 
 interface IProps {
   /**
@@ -18,17 +19,36 @@ export const FormExample = (props: IProps) => {
     { name: 'username', label: 'username', input: { type: 'text' } },
     { name: 'password', label: 'password', input: { type: 'password' } }
   ]);
+  const [errors, setErrors] = useState({ username: [''], password: [''] });
   return (
     <div>
       {JSON.stringify(formData)}
       <Form
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          // tslint:disable-next-line:no-console
-          console.log(formData);
+          const rules = [
+            { key: 'username', required: true },
+            {
+              key: 'username',
+              minLength: 2
+            },
+            {
+              key: 'username',
+              pattern: /^[a-zA-Z0-9]+$/
+            },
+            { key: 'password', required: true },
+            {
+              key: 'password',
+              maxLength: 16,
+              minLength: 6
+            }
+          ];
+          const error = validator(formData, rules);
+          setErrors(error);
         }}
         onChange={(value) => setFormData(value)}
         value={formData}
         fields={fields}
+        errors={errors}
         buttons={
           <Fragment>
             <button type='submit'>submit</button>
