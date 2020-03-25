@@ -47,7 +47,10 @@ export const Form = (props: IProps) => {
             </tr>
           );
         })}
-        <div>{props.buttons}</div>
+        <tr>
+          <td></td>
+          <td>{props.buttons}</td>
+        </tr>
       </table>
     </form>
   );

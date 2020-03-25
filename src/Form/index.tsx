@@ -52,7 +52,12 @@ export const FormExample = (props: IProps) => {
         errors={errors}
         buttons={
           <Fragment>
-            <Button type='submit'>submit</Button>
+            <Button type='submit' level='important'>
+              submit
+            </Button>
+            <Button type='submit' level='normal'>
+              cancel
+            </Button>
           </Fragment>
         }
       />

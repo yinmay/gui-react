@@ -1,5 +1,40 @@
-$colorRed:red;
+$colorRed:#ee350f;
 
-.test{
-  background: $colorRed;
+.gui-button-normal {
+  color: #333;
+  background: white;
+  border: 1px solid lighten(#333, 50%);
+  border-radius: 4px;
+  transition: all 250ms;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    border-color: $colorRed;
+    color: $colorRed
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.gui-button-important {
+  color: white;
+  background-color: $colorRed;
+  border: 1px solid $colorRed;
+  border-radius: 4px;
+  transition: all 250ms;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    border-color: lighten(#ee350f, 20);
+    color: white;
+    background-color: lighten(#ee350f, 20)
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
