@@ -29,7 +29,7 @@ export const Form = (props: IProps) => {
   };
   const { className } = props;
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={scpoedClass('')}>
       <table>
         {props.fields.map((f) => {
           const name = f && f.name;
@@ -42,7 +42,10 @@ export const Form = (props: IProps) => {
                   value={props.value[name]}
                   onChange={(e) => onInputChange(name, e.target.value)}
                 />
-                <div>{props.errors[name]}</div>
+                {/* <div>{props.errors[name] && props.errors[name].join(', ')}</div> */}
+                <div className={scpoedClass('error')}>
+                  {props.errors[name]?.join(', ')}
+                </div>
               </td>
             </tr>
           );

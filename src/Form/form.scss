@@ -1,4 +1,7 @@
 .gui-form {
+
+    border-collapse: collapse;
+
     &-row {
         &:first-child {
             padding-top: 0;
@@ -12,11 +15,17 @@
     &-td {
         padding-top: 12px;
         padding-bottom: 12px;
+        position: relative;
+    }
 
-
+    &-error {
+        font-size: 0.5em;
+        position: absolute;
+        color: #ee350f
     }
 
     &-td+&-td {
         padding-left: 8px;
     }
+
 }
