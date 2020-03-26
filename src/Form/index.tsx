@@ -7,6 +7,20 @@ interface IProps {
   text: string;
 }
 
+const usernames = ['cc', 'bb'];
+const checkUsername = (
+  username: string,
+  succeed: () => void,
+  fail: () => void
+) => {
+  setTimeout(() => {
+    if (usernames.includes(username)) {
+      return succeed();
+    }
+    return fail();
+  }, 3000);
+};
+
 export const FormExample = (props: IProps) => {
   const [formData, setFormData] = useState<IFormValue>({
     password: '',
@@ -25,6 +39,17 @@ export const FormExample = (props: IProps) => {
       {
         key: 'username',
         minLength: 2
+      },
+      {
+        key: 'username',
+        validate: {
+          name: 'unique',
+          validator: (username: string) => {
+            return new Promise<void>((resolve, reject) => {
+              checkUsername(username, resolve, reject);
+            });
+          }
+        }
       },
       {
         key: 'username',

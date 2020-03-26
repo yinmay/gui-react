@@ -6,6 +6,7 @@ interface IFormRule {
   minLength?: number;
   maxLength?: number;
   pattern?: RegExp;
+  validate?: { name: string; validator: (value: string) => Promise<void> };
 }
 
 type IFormRules = IFormRule[];
@@ -22,10 +23,15 @@ export const noError = (errors: object[]) => {
   return Object.keys(errors).length === 0;
 };
 
+function flatten<T>(array: Array<T | T[]>) {
+  const result: T[] = [];
+  return result;
+}
+
 const validator = (formValue: IFormValue, rules: IFormRules): any => {
   // tslint:disable-next-line: prefer-const
   let errors: any = {};
-  const addError = (key: string, message: string) => {
+  const addError = (key: string, message: string | Promise<any>) => {
     if (errors[key] === undefined) {
       errors[key] = [];
     }
@@ -34,6 +40,11 @@ const validator = (formValue: IFormValue, rules: IFormRules): any => {
 
   rules.map((rule) => {
     const value = formValue[rule.key];
+    if (rule.validate) {
+      // 自定义
+      const promise = rule.validate.validator(value);
+      addError(rule.key, promise);
+    }
     if (rule.required && isEmpty(value)) {
       addError(rule.key, `${rule.key} is required`);
     }

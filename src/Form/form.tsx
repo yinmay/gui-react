@@ -31,29 +31,34 @@ export const Form = (props: IProps) => {
   return (
     <form onSubmit={onSubmit} className={scpoedClass('')}>
       <table>
-        {props.fields.map((f) => {
-          const name = f && f.name;
-          return (
-            <tr className={scpoedClass('row', { extra: className })} key={name}>
-              <td className={scpoedClass('td')}>{f.label}</td>
-              <td className={scpoedClass('td')}>
-                <Input
-                  type={f.input.type}
-                  value={props.value[name]}
-                  onChange={(e) => onInputChange(name, e.target.value)}
-                />
-                {/* <div>{props.errors[name] && props.errors[name].join(', ')}</div> */}
-                <div className={scpoedClass('error')}>
-                  {props.errors[name]?.join(', ')}
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-        <tr>
-          <td></td>
-          <td>{props.buttons}</td>
-        </tr>
+        <tbody>
+          {props.fields.map((f) => {
+            const name = f && f.name;
+            return (
+              <tr
+                className={scpoedClass('row', { extra: className })}
+                key={name}
+              >
+                <td className={scpoedClass('td')}>{f.label}</td>
+                <td className={scpoedClass('td')}>
+                  <Input
+                    type={f.input.type}
+                    value={props.value[name]}
+                    onChange={(e) => onInputChange(name, e.target.value)}
+                  />
+                  {/* <div>{props.errors[name] && props.errors[name].join(', ')}</div> */}
+                  <div className={scpoedClass('error')}>
+                    {props.errors[name]?.join(', ')}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+          <tr>
+            <td></td>
+            <td>{props.buttons}</td>
+          </tr>
+        </tbody>
       </table>
     </form>
   );
