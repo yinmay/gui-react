@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ChangeEventHandler } from 'react';
 import './index.scss';
 import { getScpoedClass } from '../scopedClass';
 
@@ -10,46 +10,60 @@ export interface IChild {
   children?: IChild[];
 }
 
-interface IProps {
+type Multi = {
+  selected: string[];
+  multiple: true;
+  onChange: (selected: string[]) => void;
+};
+type Single = {
+  selected: string;
+  multiple: false;
+  onChange: (selected: string) => void;
+};
+// 联合类型
+type IProps = {
   children?: ReactNode;
   className?: string;
   sourceData: IChild[];
-  selected: string[];
-  onChange: (item: IChild, bool: boolean) => void;
-}
-
-const renderItem = (
-  item: IChild,
-  selected: string[],
-  onChange: (item: IChild, bool: boolean) => void,
-  level = 1
-) => {
-  return (
-    <div
-      key={item.text}
-      className={scpoedClass(`level-${level} tree-item`)}
-      //   style={{ paddingLeft: (level - 1) * 10 }}
-    >
-      <div className={scpoedClass('text')}>
-        <input
-          type='checkbox'
-          onChange={(e) => onChange(item, e.target.checked)}
-          checked={selected && selected.includes(item.value)}
-        />
-        {item.text}
-      </div>
-      {item.children?.map((subItem) =>
-        renderItem(subItem, selected, onChange, level + 1)
-      )}
-    </div>
-  );
-};
+} & (Multi | Single);
 
 export const Tree = (props: IProps) => {
-  const { className, selected, onChange, ...rest } = props;
+  const renderItem = (item: IChild, selected: string[] | string, level = 1) => {
+    const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+      const checked = e.target.checked;
+      if (props.multiple) {
+        if (checked) {
+          props.onChange([...props.selected, item.value]);
+        } else {
+          props.onChange(
+            props.selected.filter((value) => value !== item.value)
+          );
+        }
+      } else {
+        props.onChange(item.value);
+      }
+    };
+    return (
+      <div key={item.text} className={scpoedClass(`level-${level} tree-item`)}>
+        <label className={scpoedClass('text')}>
+          <input
+            type='checkbox'
+            onChange={onChange}
+            checked={
+              props.multiple
+                ? selected.includes(item.value)
+                : selected === item.value
+            }
+          />
+          {item.text}
+        </label>
+        {item.children?.map((subItem) =>
+          renderItem(subItem, selected, level + 1)
+        )}
+      </div>
+    );
+  };
   return (
-    <div className={scpoedClass('', { extra: className })} {...rest}>
-      {props.sourceData?.map((i) => renderItem(i, selected, onChange))}
-    </div>
+    <div>{props.sourceData?.map((i) => renderItem(i, props.selected))}</div>
   );
 };

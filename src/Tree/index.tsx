@@ -28,19 +28,21 @@ export const TreeExample = (props: IProps) => {
     }
   ]);
 
-  const [selected, setSelected] = useState(['']);
+  const [selected, setSelected] = useState(['1']);
 
-  const onChange = (item: IChild, bool: boolean) => {
-    if (bool) {
-      setSelected([...selected, item.value]);
-    } else {
-      setSelected(selected.filter((value) => value !== item.value));
-    }
+  const onChange = (value: string[]) => {
+    setSelected(value);
   };
 
   return (
     <div {...rest}>
-      <Tree sourceData={array} selected={selected} onChange={onChange} />
+      {selected.join(', ')}
+      <Tree
+        sourceData={array}
+        selected={selected}
+        onChange={onChange}
+        multiple
+      />
     </div>
   );
 };
