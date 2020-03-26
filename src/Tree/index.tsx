@@ -18,13 +18,18 @@ export const TreeExample = (props: IProps) => {
         {
           text: '1-1',
           value: '1-1'
+        },
+        {
+          text: '1-2',
+          value: '1-2',
+          children: [{ text: '1-2-1', value: '1-2-1' }]
         }
       ]
     }
   ]);
   return (
     <div {...rest}>
-      <Tree sourceData={array} />
+      <Tree sourceData={array} selected={['1', '1-1']} />
     </div>
   );
 };
