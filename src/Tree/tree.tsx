@@ -1,4 +1,4 @@
-import React, { ReactNode, ChangeEventHandler } from 'react';
+import React, { ReactNode, ChangeEventHandler, useState } from 'react';
 import './index.scss';
 import { getScpoedClass } from '../scopedClass';
 
@@ -43,8 +43,20 @@ export const Tree = (props: IProps) => {
         props.onChange(item.value);
       }
     };
+    const expand = () => setExpanded(true);
+    const collapse = () => setExpanded(false);
+    const [expanded, setExpanded] = useState(true);
     return (
       <div key={item.text} className={scpoedClass(`level-${level} tree-item`)}>
+        {item.children && (
+          <span>
+            {expanded ? (
+              <span onClick={collapse}>-</span>
+            ) : (
+              <span onClick={expand}>+</span>
+            )}
+          </span>
+        )}
         <label className={scpoedClass('text')}>
           <input
             type='checkbox'
@@ -57,9 +69,11 @@ export const Tree = (props: IProps) => {
           />
           {item.text}
         </label>
-        {item.children?.map((subItem) =>
-          renderItem(subItem, selected, level + 1)
-        )}
+        <div className={scpoedClass({ children: true, collapsed: !expanded })}>
+          {item.children?.map((subItem) =>
+            renderItem(subItem, selected, level + 1)
+          )}
+        </div>
       </div>
     );
   };
