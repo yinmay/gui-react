@@ -4,7 +4,7 @@ import { getScpoedClass } from '../scopedClass';
 
 const scpoedClass = getScpoedClass('gui-tree');
 
-interface IChild {
+export interface IChild {
   text: string;
   value: string;
   children?: IChild[];
@@ -14,10 +14,16 @@ interface IProps {
   children?: ReactNode;
   className?: string;
   sourceData: IChild[];
-  selected?: string[];
+  selected: string[];
+  onChange: (item: IChild, bool: boolean) => void;
 }
 
-const renderItem = (item: IChild, selected?: string[], level = 1) => {
+const renderItem = (
+  item: IChild,
+  selected: string[],
+  onChange: (item: IChild, bool: boolean) => void,
+  level = 1
+) => {
   return (
     <div
       key={item.text}
@@ -27,22 +33,23 @@ const renderItem = (item: IChild, selected?: string[], level = 1) => {
       <div className={scpoedClass('text')}>
         <input
           type='checkbox'
+          onChange={(e) => onChange(item, e.target.checked)}
           checked={selected && selected.includes(item.value)}
         />
         {item.text}
       </div>
       {item.children?.map((subItem) =>
-        renderItem(subItem, selected, level + 1)
+        renderItem(subItem, selected, onChange, level + 1)
       )}
     </div>
   );
 };
 
 export const Tree = (props: IProps) => {
-  const { className, selected, ...rest } = props;
+  const { className, selected, onChange, ...rest } = props;
   return (
     <div className={scpoedClass('', { extra: className })} {...rest}>
-      {props.sourceData?.map((i) => renderItem(i, selected))}
+      {props.sourceData?.map((i) => renderItem(i, selected, onChange))}
     </div>
   );
 };

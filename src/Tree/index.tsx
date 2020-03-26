@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { Tree } from './tree';
+import { Tree, IChild } from './tree';
 import './index.scss';
 
 interface IProps {
@@ -27,9 +27,20 @@ export const TreeExample = (props: IProps) => {
       ]
     }
   ]);
+
+  const [selected, setSelected] = useState(['']);
+
+  const onChange = (item: IChild, bool: boolean) => {
+    if (bool) {
+      setSelected([...selected, item.value]);
+    } else {
+      setSelected(selected.filter((value) => value !== item.value));
+    }
+  };
+
   return (
     <div {...rest}>
-      <Tree sourceData={array} selected={['1', '1-1']} />
+      <Tree sourceData={array} selected={selected} onChange={onChange} />
     </div>
   );
 };
