@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-// import { LayoutExample } from '../src/Layout';
+import { TreeExample } from '../src/Tree';
 
-const stories = storiesOf('LayoutExample', module);
+const stories = storiesOf('Tree', module);
 
-// stories.add('with layout', () => {
-//   return <LayoutExample />;
-// });
+stories.add('with layout', () => {
+  return <TreeExample />;
+});

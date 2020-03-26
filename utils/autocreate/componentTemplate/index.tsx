@@ -1,12 +1,13 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
-import './button.scss';
+import React, { ReactNode } from 'react';
+import './index.scss';
 import { getScpoedClass } from '../../../src/scopedClass';
 
 const scpoedClass = getScpoedClass('gui-button');
 
-interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps {
   //   type: string;
-  //   children?: ReactNode;
+  children?: ReactNode;
+  className?: string;
 }
 
 export const ExampleButton = (props: IProps) => {

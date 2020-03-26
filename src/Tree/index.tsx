@@ -1,19 +1,30 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
-import './button.scss';
-import { getScpoedClass } from '../../../src/scopedClass';
+import React, { ReactNode, useState } from 'react';
+import { Tree } from './tree';
+import './index.scss';
 
-const scpoedClass = getScpoedClass('gui-button');
-
-interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps {
   //   type: string;
-  //   children?: ReactNode;
+  children?: ReactNode;
+  className?: string;
 }
 
-export const ExampleButton = (props: IProps) => {
+export const TreeExample = (props: IProps) => {
   const { className, ...rest } = props;
+  const [array, setArray] = useState([
+    {
+      text: '1',
+      value: '1',
+      children: [
+        {
+          text: '1-1',
+          value: '1-1'
+        }
+      ]
+    }
+  ]);
   return (
-    <button className={scpoedClass('', { extra: className })} {...rest}>
-      {props.children}
-    </button>
+    <div {...rest}>
+      <Tree sourceData={array} />
+    </div>
   );
 };
