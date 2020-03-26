@@ -1,4 +1,10 @@
-import React, { ReactNode, ChangeEventHandler, useState } from 'react';
+import React, {
+  ReactNode,
+  ChangeEventHandler,
+  useState,
+  useEffect,
+  useRef
+} from 'react';
 import './index.scss';
 import { getScpoedClass } from '../scopedClass';
 
@@ -27,6 +33,17 @@ type IProps = {
   sourceData: IChild[];
 } & (Multi | Single);
 
+const useUpdate = (expanded: boolean, callback: () => void) => {
+  const isFirst = useRef(true);
+  useEffect(() => {
+    if (isFirst.current === true) {
+      isFirst.current = false;
+      return;
+    }
+    callback();
+  }, [expanded]);
+};
+
 export const Tree = (props: IProps) => {
   const renderItem = (item: IChild, selected: string[] | string, level = 1) => {
     const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -45,7 +62,25 @@ export const Tree = (props: IProps) => {
     };
     const expand = () => setExpanded(true);
     const collapse = () => setExpanded(false);
+    const divRef = useRef<HTMLDivElement>(null);
     const [expanded, setExpanded] = useState(true);
+    useUpdate(expanded, () => {
+      if (expanded) {
+        if (!divRef.current) return;
+        divRef.current.style.height = 'auto';
+
+        const { height } = divRef.current.getBoundingClientRect();
+        divRef.current.style.height = '0';
+        divRef.current.getBoundingClientRect();
+        divRef.current.style.height = height + 'px';
+      } else {
+        if (!divRef.current) return;
+        const { height } = divRef.current.getBoundingClientRect();
+        divRef.current.style.height = height + 'px';
+        divRef.current.getBoundingClientRect();
+        divRef.current.style.height = '0';
+      }
+    });
     return (
       <div key={item.text} className={scpoedClass(`level-${level} tree-item`)}>
         {item.children && (
@@ -69,7 +104,10 @@ export const Tree = (props: IProps) => {
           />
           {item.text}
         </label>
-        <div className={scpoedClass({ children: true, collapsed: !expanded })}>
+        <div
+          ref={divRef}
+          className={scpoedClass({ children: true, collapsed: !expanded })}
+        >
           {item.children?.map((subItem) =>
             renderItem(subItem, selected, level + 1)
           )}

@@ -1,10 +1,4 @@
 .gui-tree {
-    &-text {
-
-        // &:hover {
-        //     background-color: lightblue;
-        // }
-    }
 
     .tree-item {
         line-height: 1.5;
@@ -28,8 +22,9 @@
         padding-left: 3em;
     }
 
-    &-collapsed {
-        height: 0;
+    &-children {
+        // height: 0;
         overflow: hidden;
+        transition: height 0.5s;
     }
 }
