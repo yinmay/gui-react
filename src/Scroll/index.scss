@@ -3,7 +3,6 @@
     position: relative;
 
     &-inner {
-        border: 1px solid blue;
         overflow: auto;
         position: absolute;
         top: 0;
@@ -14,11 +13,13 @@
 
     &-slot {
         position: absolute;
-        border: 1px solid red;
         height: 100%;
         width: 10px;
         right: 0;
         top: 0;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
 
     }
 
@@ -29,7 +30,14 @@
         width: 10px;
         left: 0;
         top: 0;
-
+        border-radius: 10px;
+        background-image: -webkit-gradient(linear,
+                left bottom,
+                left top,
+                color-stop(0.44, rgb(122, 153, 217)),
+                color-stop(0.72, rgb(73, 125, 189)),
+                color-stop(0.86, rgb(28, 58, 148)));
     }
+
 
 }
