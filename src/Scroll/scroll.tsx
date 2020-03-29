@@ -19,10 +19,13 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
+const isTouchDevice: boolean = 'ontouchstart' in document.documentElement;
+
 export const Scroll = (props: IProps) => {
   const { className, ...rest } = props;
   const [barHeight, setBarHeight] = useState(0);
   const [barTop, _setBarTop] = useState(0);
+
   const setBarTop = (number: number) => {
     if (number < 0) return;
     const { current } = containerRef;
@@ -97,13 +100,15 @@ export const Scroll = (props: IProps) => {
       >
         {props.children}
       </div>
-      <div className={scpoedClass('slot')}>
-        <div
-          className={scpoedClass('bar')}
-          onMouseDown={onMouseDown}
-          style={{ height: barHeight, transform: `translateY(${barTop}px)` }}
-        ></div>
-      </div>
+      {!isTouchDevice && (
+        <div className={scpoedClass('slot')}>
+          <div
+            className={scpoedClass('bar')}
+            onMouseDown={onMouseDown}
+            style={{ height: barHeight, transform: `translateY(${barTop}px)` }}
+          ></div>
+        </div>
+      )}
     </div>
   );
 };
