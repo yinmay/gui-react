@@ -19,12 +19,13 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-const isTouchDevice: boolean = 'ontouchstart' in document.documentElement;
+// const isTouchDevice: boolean = 'ontouchstart' in document.documentElement;
 
 export const Scroll = (props: IProps) => {
   const { className, ...rest } = props;
   const [barHeight, setBarHeight] = useState(0);
   const [barTop, _setBarTop] = useState(0);
+  const [barVisible, setBarVisible] = useState(false);
 
   const setBarTop = (number: number) => {
     if (number < 0) return;
@@ -38,16 +39,26 @@ export const Scroll = (props: IProps) => {
     _setBarTop(number);
   };
 
+  const timerRef = useRef<number | null>(null);
+
   const onScroll: UIEventHandler = (e: React.UIEvent) => {
+    setBarVisible(true);
     const { current } = containerRef;
     const scrollHeight = current!.scrollHeight; // 滚动全高
     const scrollTop = current!.scrollTop; // 滚动全高
     const viewHeight = current!.getBoundingClientRect().height; // 可视范围高度
     setBarTop((scrollTop * viewHeight) / scrollHeight);
+    if (timerRef.current) {
+      window.clearTimeout(timerRef.current);
+    }
+    timerRef.current = window.setTimeout(() => {
+      setBarVisible(false);
+    }, 300);
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // mounted
   useEffect(() => {
     const scrollHeight = containerRef.current!.scrollHeight; // 滚动全高
     const viewHeight = containerRef.current!.getBoundingClientRect().height; // 可视范围高度
@@ -85,7 +96,7 @@ export const Scroll = (props: IProps) => {
       document.removeEventListener('mouseMove', onMouseMove);
     };
   }, []);
-
+  console.log(barVisible);
   return (
     <div
       className={scpoedClass('')}
@@ -100,7 +111,7 @@ export const Scroll = (props: IProps) => {
       >
         {props.children}
       </div>
-      {!isTouchDevice && (
+      {barVisible && (
         <div className={scpoedClass('slot')}>
           <div
             className={scpoedClass('bar')}
