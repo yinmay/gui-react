@@ -3,6 +3,7 @@ import React, {
   HTMLAttributes,
   UIEventHandler,
   MouseEventHandler,
+  TouchEventHandler,
   useState,
   useEffect,
   useRef
@@ -96,7 +97,44 @@ export const Scroll = (props: IProps) => {
       document.removeEventListener('mouseMove', onMouseMove);
     };
   }, []);
-  console.log(barVisible);
+  const [translateY, _setTranslateY] = useState(0);
+  const setTranslateY = (num: number) => {
+    if (num < 0) {
+      num = 0;
+    } else if (num > 150) {
+      num = 150;
+    }
+    _setTranslateY(num);
+  };
+  const lastYRef = useRef(0);
+  const moveCount = useRef(0);
+  const pulling = useRef(true);
+  const onTouchMove: TouchEventHandler = (e) => {
+    moveCount.current += 1;
+    const deltaY = e.touches[0].clientY - lastYRef.current;
+    if (moveCount.current === 1 && deltaY < 0) {
+      pulling.current = false;
+      return;
+    }
+    if (pulling.current === false) {
+      return;
+    }
+
+    setTranslateY(translateY + deltaY);
+
+    lastYRef.current = e.touches[0].clientY;
+  };
+  const onTouchStart: TouchEventHandler = (e) => {
+    const { current } = containerRef;
+    const scrollTop = current!.scrollTop;
+    if (scrollTop !== 0) return;
+    pulling.current = true;
+    lastYRef.current = e.touches[0].clientY;
+    moveCount.current = 0;
+  };
+  const onTouchEnd: TouchEventHandler = (e) => {
+    setTranslateY(0);
+  };
   return (
     <div
       className={scpoedClass('')}
@@ -104,8 +142,15 @@ export const Scroll = (props: IProps) => {
       //   onMouseUp={onMouseUp}
       //   onMouseMove={onMouseMove}
     >
+      <div className={scpoedClass('loading')} style={{ height: translateY }}>
+        ↓
+      </div>
       <div
         className={scpoedClass('inner')}
+        style={{ transform: `translateY(${translateY}px)` }}
+        onTouchMove={onTouchMove}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         ref={containerRef}
         onScroll={onScroll}
       >

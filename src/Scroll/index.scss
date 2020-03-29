@@ -2,6 +2,14 @@
     overflow: hidden;
     position: relative;
 
+    &-loading {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
     &-inner {
         overflow: auto;
         position: absolute;
