@@ -1,7 +1,9 @@
-import React, { useState, Fragment } from 'react';
+// import * as React from 'react';
+import { storiesOf } from '@storybook/react';
 import { Content, alert, confirm, modal } from './Content';
 
-// tslint:disable-next-line: no-empty-interface
+import React, { useState } from 'react';
+
 interface IProps {
   /**
    * Name for the button
@@ -47,4 +49,6 @@ const Dialog = (props?: IProps) => {
   );
 };
 
-export { Dialog };
+const stories = storiesOf('Dialog', module);
+
+stories.add('with dialog', Dialog);

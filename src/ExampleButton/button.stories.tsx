@@ -3,16 +3,12 @@ import { action } from '@storybook/addon-actions';
 
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
-import { ExampleButton } from '../src';
+import { ExampleButton } from '..';
 
 const stories = storiesOf('Button', module);
 
-stories.add(
-  'with text',
-  () => (
-    <ExampleButton type={text('type', 'text')}>ExampleButton</ExampleButton>
-  ),
-  {
-    notes: { markdown: '12' }
-  }
+const buttonDefault = () => (
+  <ExampleButton type={text('type', 'text')}>ExampleButton</ExampleButton>
 );
+
+stories.add('buttonDefault', buttonDefault);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import './layout.scss';
-import { Layout, Header, Content, Footer, Aside } from '../src';
+import './index.scss';
+import { Layout, Header, Content, Footer, Aside } from '..';
 
 const stories = storiesOf('LayoutExample', module);
 

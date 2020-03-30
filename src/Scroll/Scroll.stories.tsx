@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { ScrollExample } from '../src/Scroll';
+import { ScrollExample } from '.';
 
 const stories = storiesOf('ScrollExample', module);
 
